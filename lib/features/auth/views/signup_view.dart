@@ -3,22 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_twitter_app/core/common_widgets/rounded_small_button.dart';
 import 'package:flutter_twitter_app/core/constants/ui_constants.dart';
-import 'package:flutter_twitter_app/core/routes/route_names.dart';
+import 'package:flutter_twitter_app/core/theme/app_theme.dart';
 import 'package:flutter_twitter_app/core/theme/pallete.dart';
 import 'package:flutter_twitter_app/features/auth/widgets/auth_field.dart';
 import 'package:go_router/go_router.dart';
 
-class LoginView extends ConsumerStatefulWidget {
+class SignUpView extends ConsumerStatefulWidget {
   static route() => MaterialPageRoute(
-        builder: (context) => const LoginView(),
+        builder: (context) => const SignUpView(),
       );
-  const LoginView({super.key});
+  const SignUpView({super.key});
 
   @override
-  ConsumerState<LoginView> createState() => _LoginViewState();
+  ConsumerState<SignUpView> createState() => _SignUpViewState();
 }
 
-class _LoginViewState extends ConsumerState<LoginView> {
+class _SignUpViewState extends ConsumerState<SignUpView> {
   final appbar = UIConstants.appBar();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
@@ -30,7 +30,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
     passwordController.dispose();
   }
 
-  void onLogin() {}
+  void onSignUp() {}
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +43,7 @@ class _LoginViewState extends ConsumerState<LoginView> {
             child: Column(
               children: [
                 const Text(
-                  'Login',
+                  'Sign up',
                   style: TextStyle(color: Pallete.greyColor, fontSize: 40),
                 ),
                 const SizedBox(
@@ -63,27 +63,27 @@ class _LoginViewState extends ConsumerState<LoginView> {
                 Align(
                   alignment: Alignment.topRight,
                   child: RoundedSmallButton(
-                    onTap: onLogin,
+                    onTap: onSignUp,
                     label: 'Done',
                   ),
                 ),
                 const SizedBox(height: 40),
                 RichText(
                   text: TextSpan(
-                    text: "Don't have an account?",
+                    text: "Already have an account?",
                     style: const TextStyle(
                       fontSize: 16,
                     ),
                     children: [
                       TextSpan(
-                        text: ' Sign up',
+                        text: ' Login',
                         style: const TextStyle(
                           color: Pallete.blueColor,
                           fontSize: 16,
                         ),
                         recognizer: TapGestureRecognizer()
                           ..onTap = () {
-                            context.push(RouteNames.signUp);
+                            context.pop();
                           },
                       ),
                     ],
