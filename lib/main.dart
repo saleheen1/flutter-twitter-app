@@ -6,12 +6,6 @@ import 'package:flutter_twitter_app/core/theme/app_theme.dart';
 import 'package:flutter_twitter_app/features/auth/views/login_view.dart';
 
 void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  Client client = Client()
-      .setEndpoint(AppwriteConstants.appwriteUrl)
-      .setProject(AppwriteConstants.appwriteProjectId);
-  Account account = Account(client);
-
   runApp(const MyApp());
 }
 
