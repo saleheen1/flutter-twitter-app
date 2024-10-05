@@ -6,12 +6,12 @@ import 'package:flutter_twitter_app/core/errors/failure.dart';
 import 'package:flutter_twitter_app/core/providers/providers.dart';
 import 'package:flutter_twitter_app/core/type_defs.dart';
 
-final authAPIProvider = Provider((ref) {
+final authRepoProvider = Provider((ref) {
   final account = ref.watch(appwriteAccountProvider);
-  return AuthApi(account: account);
+  return AuthRepositoryImpl(account: account);
 });
 
-abstract class IAuthAPI {
+abstract class AuthRepository {
   FutureEither<model.User> signUp({
     required String email,
     required String password,
@@ -24,9 +24,9 @@ abstract class IAuthAPI {
   Future<model.User?> currentUserAccount();
 }
 
-class AuthApi implements IAuthAPI {
+class AuthRepositoryImpl implements AuthRepository {
   final Account _account;
-  AuthApi({required Account account}) : _account = account;
+  AuthRepositoryImpl({required Account account}) : _account = account;
 
   @override
   Future<model.User?> currentUserAccount() async {
