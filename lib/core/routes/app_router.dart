@@ -3,12 +3,18 @@ import 'package:flutter_twitter_app/core/routes/route_names.dart';
 import 'package:flutter_twitter_app/features/auth/views/login_view.dart';
 import 'package:flutter_twitter_app/features/auth/views/signup_view.dart';
 import 'package:flutter_twitter_app/features/home/home_view.dart';
+import 'package:flutter_twitter_app/features/home/splash_view.dart';
 import 'package:go_router/go_router.dart';
 
 class AppRouter {
   static final GoRouter routes = GoRouter(
       errorPageBuilder: (context, state) => _errorPage(state),
       routes: [
+        GoRoute(
+          path: RouteNames.splash,
+          name: RouteNames.splash,
+          builder: (context, state) => const SplashView(),
+        ),
         GoRoute(
           path: RouteNames.login,
           name: RouteNames.login,

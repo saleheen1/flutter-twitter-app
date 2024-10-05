@@ -15,13 +15,19 @@ final authControllerProvider =
   );
 });
 
+final currentUserAccountProvider = FutureProvider((ref) {
+  final authController = ref.watch(authControllerProvider.notifier);
+  return authController.currentUser();
+});
+
 class AuthController extends StateNotifier<bool> {
   final AuthApi _authAPI;
   AuthController({
     required AuthApi authAPI,
   })  : _authAPI = authAPI,
         super(false);
-  // state = isLoading
+
+  Future<model.User?> currentUser() => _authAPI.currentUserAccount();
 
   void signUp({
     required String email,

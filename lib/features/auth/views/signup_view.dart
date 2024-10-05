@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_twitter_app/core/common_widgets/loading_page.dart';
 import 'package:flutter_twitter_app/core/common_widgets/rounded_small_button.dart';
 import 'package:flutter_twitter_app/core/constants/ui_constants.dart';
+import 'package:flutter_twitter_app/core/routes/route_names.dart';
 import 'package:flutter_twitter_app/core/theme/app_theme.dart';
 import 'package:flutter_twitter_app/core/theme/pallete.dart';
 import 'package:flutter_twitter_app/features/auth/controllers/auth_controller.dart';
@@ -96,7 +97,7 @@ class _SignUpViewState extends ConsumerState<SignUpView> {
                               ),
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
-                                  context.pop();
+                                  context.pushReplacement(RouteNames.login);
                                 },
                             ),
                           ],
