@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_twitter_app/core/routes/route_names.dart';
 import 'package:flutter_twitter_app/features/auth/views/login_view.dart';
 import 'package:flutter_twitter_app/features/auth/views/signup_view.dart';
-import 'package:flutter_twitter_app/features/home/home_view.dart';
-import 'package:flutter_twitter_app/features/home/splash_view.dart';
+import 'package:flutter_twitter_app/features/home/views/home_view.dart';
+import 'package:flutter_twitter_app/features/home/views/splash_view.dart';
 import 'package:go_router/go_router.dart';
 
 class AppRouter {
