@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_twitter_app/core/routes/route_names.dart';
 import 'package:flutter_twitter_app/features/auth/views/login_view.dart';
 import 'package:flutter_twitter_app/features/auth/views/signup_view.dart';
+import 'package:flutter_twitter_app/features/home/home_view.dart';
 import 'package:go_router/go_router.dart';
 
 class AppRouter {
-  GoRouter routes = GoRouter(
+  static final GoRouter routes = GoRouter(
       errorPageBuilder: (context, state) => _errorPage(state),
       routes: [
         GoRoute(
@@ -17,6 +18,11 @@ class AppRouter {
           path: RouteNames.signUp,
           name: RouteNames.signUp,
           builder: (context, state) => const SignUpView(),
+        ),
+        GoRoute(
+          path: RouteNames.home,
+          name: RouteNames.home,
+          builder: (context, state) => const HomeView(),
         ),
       ]);
 }

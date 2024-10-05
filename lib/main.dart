@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter twitter app',
       theme: AppTheme.theme,
-      routerConfig: AppRouter().routes,
+      routerConfig: AppRouter.routes,
     );
   }
 }
