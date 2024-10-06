@@ -16,6 +16,17 @@ final authControllerProvider =
       userRepositoryImpl: ref.watch(userRepoProvider));
 });
 
+final currentUserDetailsProvider = FutureProvider((ref) {
+  final currentUserId = ref.watch(currentUserAccountProvider).value!.$id;
+  final userDetails = ref.watch(userDetailsProvider(currentUserId));
+  return userDetails.value;
+});
+
+final userDetailsProvider = FutureProvider.family((ref, String uid) {
+  final authController = ref.watch(authControllerProvider.notifier);
+  return authController.getUserData(uid);
+});
+
 final currentUserAccountProvider = FutureProvider((ref) {
   final authController = ref.watch(authControllerProvider.notifier);
   return authController.currentUser();
@@ -85,5 +96,11 @@ class AuthController extends StateNotifier<bool> {
         context.pushReplacement(RouteNames.home);
       },
     );
+  }
+
+  Future<UserModel> getUserData(String uid) async {
+    final document = await _userRepositoryImpl.getUserData(uid);
+    final updatedUser = UserModel.fromMap(document.data);
+    return updatedUser;
   }
 }

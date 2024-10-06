@@ -49,4 +49,13 @@ class UserRepositoryImpl implements UserRepository {
       return left(Failure(e.toString(), st));
     }
   }
+
+  @override
+  Future<model.Document> getUserData(String uid) {
+    return _db.getDocument(
+      databaseId: AppwriteConstants.dbId,
+      collectionId: AppwriteConstants.userCollection,
+      documentId: uid,
+    );
+  }
 }
