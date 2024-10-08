@@ -17,6 +17,10 @@ final userRepoProvider = Provider((ref) {
 
 abstract class UserRepository {
   FutureEitherVoid saveUserData(UserModel userModel);
+  Stream<RealtimeMessage> getLatestUserProfileData();
+  FutureEitherVoid updateUserData(UserModel userModel);
+  FutureEitherVoid followUser(UserModel user);
+  FutureEitherVoid addToFollowing(UserModel user);
 }
 
 class UserRepositoryImpl implements UserRepository {
@@ -27,6 +31,83 @@ class UserRepositoryImpl implements UserRepository {
     required Realtime realtime,
   })  : _realtime = realtime,
         _db = db;
+
+  @override
+  FutureEitherVoid addToFollowing(UserModel user) async {
+    try {
+      await _db.updateDocument(
+        databaseId: AppwriteConstants.dbId,
+        collectionId: AppwriteConstants.userCollection,
+        documentId: user.uid,
+        data: {
+          'following': user.following,
+        },
+      );
+      return right(null);
+    } on AppwriteException catch (e, st) {
+      return left(
+        Failure(
+          e.message ?? 'Some unexpected error occurred',
+          st,
+        ),
+      );
+    } catch (e, st) {
+      return left(Failure(e.toString(), st));
+    }
+  }
+
+  @override
+  FutureEitherVoid followUser(UserModel user) async {
+    try {
+      await _db.updateDocument(
+        databaseId: AppwriteConstants.dbId,
+        collectionId: AppwriteConstants.userCollection,
+        documentId: user.uid,
+        data: {
+          'followers': user.followers,
+        },
+      );
+      return right(null);
+    } on AppwriteException catch (e, st) {
+      return left(
+        Failure(
+          e.message ?? 'Some unexpected error occurred',
+          st,
+        ),
+      );
+    } catch (e, st) {
+      return left(Failure(e.toString(), st));
+    }
+  }
+
+  @override
+  FutureEitherVoid updateUserData(UserModel userModel) async {
+    try {
+      await _db.updateDocument(
+        databaseId: AppwriteConstants.dbId,
+        collectionId: AppwriteConstants.userCollection,
+        documentId: userModel.uid,
+        data: userModel.toMap(),
+      );
+      return right(null);
+    } on AppwriteException catch (e, st) {
+      return left(
+        Failure(
+          e.message ?? 'Some unexpected error occurred',
+          st,
+        ),
+      );
+    } catch (e, st) {
+      return left(Failure(e.toString(), st));
+    }
+  }
+
+  @override
+  Stream<RealtimeMessage> getLatestUserProfileData() {
+    return _realtime.subscribe([
+      'databases.${AppwriteConstants.dbId}.collections.${AppwriteConstants.userCollection}.documents'
+    ]).stream;
+  }
 
   @override
   FutureEitherVoid saveUserData(UserModel userModel) async {

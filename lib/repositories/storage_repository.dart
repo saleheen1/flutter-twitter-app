@@ -4,7 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_twitter_app/core/constants/appwrite_constants.dart';
 import 'package:flutter_twitter_app/core/providers/providers.dart';
 
-final storageAPIProvider = Provider((ref) {
+final storageRepoProvider = Provider((ref) {
   return StorageRepository(
     storage: ref.watch(appwriteStorageProvider),
   );

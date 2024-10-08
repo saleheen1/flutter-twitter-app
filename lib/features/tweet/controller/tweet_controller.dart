@@ -18,7 +18,7 @@ final tweetControllerProvider = StateNotifierProvider<TweetController, bool>(
     return TweetController(
       ref: ref,
       tweetRepo: ref.watch(tweetRepositoryProvider),
-      storageRepo: ref.watch(storageAPIProvider),
+      storageRepo: ref.watch(storageRepoProvider),
       notificationController:
           ref.watch(notificationControllerProvider.notifier),
     );
